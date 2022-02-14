@@ -1,13 +1,29 @@
 from rest_framework import serializers
 from metricdatapoint import models
-class AccountSerializer(serializers.ModelSerializer):
 
-    def create(self, validated_data):
-        
-        data = models.MetricDataPoint.objects.create(**validated_data)
-        return data 
+class SpesDataSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.SpesData
+        fields = ['date', 'value']     
+
+
+
+class MetricsDataPointSerializer(serializers.ModelSerializer):
+    x = SpesDataSerializer()
+    y = SpesDataSerializer()
+
+
+
+    class Meta:
+        model = models.MetricsDataPoint
+        fields = ['x_data_type', 'y_data_type', 'x', 'y']     
+
+class DataSerializer(serializers.ModelSerializer):
+    data = MetricsDataPointSerializer()
 
     class Meta:
         
-        model = models.MetricDataPoint
-        fields = ['x_data_type', 'x_date', 'x_values', 'y_data_type', 'y_date', 'y_values']
+        model = models.MetricData
+        fields = ['user_id', 'data']
+

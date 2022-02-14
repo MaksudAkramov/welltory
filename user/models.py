@@ -5,7 +5,8 @@ from user.managers import UserManager
 
 
 class Account(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=50,primary_key=True)
+    id = models.AutoField(verbose_name="ID", primary_key=True)
+    username = models.CharField(max_length=50, unique=True)
     email = models.EmailField()
     is_active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False) # a admin user; non super-user
@@ -17,6 +18,10 @@ class Account(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['email']
 
     objects = UserManager()
+
+    def __str__(self) -> str:
+        return self.id
+
     @property
     def is_staff(self):
         "Is the user a member of staff?"

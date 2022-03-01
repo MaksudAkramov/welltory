@@ -1,10 +1,10 @@
 from django.contrib import admin
 
 
-from .models import Metricdata, MetricsDataPoint, SpesData
-# Register your models here.
+from .models import MetricDataPoint, MetricData, SpesData
 
 
-admin.site.register(MetricsDataPoint)
+
+admin.site.register(MetricData)
 admin.site.register(SpesData)
-admin.site.register(Metricdata)
+admin.site.register(MetricDataPoint)
